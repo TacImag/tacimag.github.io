@@ -1,9 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>TacImag</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TacImag</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Hello TacImag!</h1>
+<nav class="side-nav">
+  <a href="#top">Top</a>
+  <a href="#teaser">Teaser</a>
+  <a href="#rollouts">Rollouts</a>
+  <a href="#method">Method</a>
+  <a href="#denoising">Denoising</a>
+  <a href="#realworld">Real World</a>
+  <a href="#mechanism">Mechanism</a>
+  <a href="#bibtex">BibTeX</a>
+</nav>
+
+<header id="top">
+  <h3>Imagining the Sense of Touch: Touch-Informed Manipulation via Imagined Tactile Representations</h3>
+
+  <p class="authors">
+    <a href="https://zhangzhiyuanzhang.github.io/personal_website/" target="_blank">Zhiyuan Zhang*</a>,
+    <a href="https://scholar.google.com/citations?user=A880yg0AAAAJ&hl=en&oi=ao" target="_blank">Adeesh Mahesh Desai*</a>,
+    <a href="https://vict0rhu.github.io/" target="_blank">Jyun-Chi Hu</a>,
+    <a href="https://www.linkedin.com/in/yosuke-saka-446410283/?locale=en" target="_blank">Yosuke Saka</a>,
+    <a href="https://quan-luu.github.io/" target="_blank">Quan Khanh Luu</a>,
+    <a href="https://scholar.google.com/citations?user=X52xke0AAAAJ&hl=en" target="_blank">Jiuzhou Lei</a>,
+    <br />
+    <a href="https://scholar.google.com/citations?user=Rmadq64AAAAJ&hl=en" target="_blank">Davood Soleymanzadeh</a>,
+    <a href="https://www.linkedin.com/in/bihao-zhang-861754352/" target="_blank">Bihao Zhang</a>,
+    <a href="https://zh.engr.tamu.edu/" target="_blank">Minghui Zheng</a>,
+    <a href="https://www.purduemars.com/" target="_blank">Yu She<sup>†</sup></a>
+  </p>
+
+  <p class="affiliations">
+    Purdue University &nbsp; | &nbsp; Texas A&amp;M University<br />
+    * Equal Contribution &nbsp; † Corresponding Author
+  </p>
+
+  <div class="buttons">
+    <a href="#" target="_blank">arXiv</a>
+    <a href="#" target="_blank">Code (Coming Soon)</a>
+    <a href="#" target="_blank">Video</a>
+  </div>
+</header>
+
+<section id="teaser" class="hero-section">
+  <div class="hero-summary">
+    <span>Learning from Touch</span><span>|</span><span>Deploying without Tactile Sensors</span><span>|</span><span>Vision-to-Tactile Imagination</span>
+  </div>
+
+  <img src="assets/teaser.svg" class="content-media teaser-img" alt="TacImag teaser" />
+
+  <p class="hero-caption">
+    TacImag learns to predict task-relevant tactile representations from visual observations, enabling touch-informed manipulation at test time without physical tactile sensors.
+  </p>
+</section>
+
+<section id="rollouts">
+  <h2>Simulation Rollouts</h2>
+  <p class="section-subtitle">
+    TacImag improves both contact-sensitive and texture-sensitive manipulation by generating different imagined tactile representations according to the task requirement.
+  </p>
+
+  <div class="two-col">
+    <div class="video-card">
+      <h3>Contact-Sensitive Rollout</h3>
+      <video autoplay muted loop playsinline controls>
+        <source src="videos/imag_rollout_ff.mp4" type="video/mp4" />
+      </video>
+      <p class="figure-note">Imagined force-field tactile representation supports contact-rich control.</p>
+    </div>
+
+    <div class="video-card">
+      <h3>Texture-Sensitive Rollout</h3>
+      <video autoplay muted loop playsinline controls>
+        <source src="videos/imag_rollout_rgb.mp4" type="video/mp4" />
+      </video>
+      <p class="figure-note">Imagined tactile images preserve task-relevant visual-textural cues.</p>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <h2>Method</h2>
+  <p>
+    TacImag uses a two-stage pipeline: first, a tactile imagination model learns to generate tactile observations from visual and proprioceptive inputs; second, a manipulation policy uses the imagined tactile representations as auxiliary observations during policy execution.
+  </p>
+  <img src="assets/architecture.svg"
+     class="content-media"
+     alt="TacImag architecture"
+     style="width:80%; display:block; margin:auto;">
+</section>
+
+<section id="denoising">
+  <h2>Tactile Imagination Process</h2>
+  <p class="section-subtitle">
+    The tactile imagination model progressively denoises latent tactile observations and produces task-relevant tactile representations online.
+  </p>
+  <video class="content-media" autoplay muted loop playsinline controls>
+    <source src="videos/denoise.mp4" type="video/mp4" />
+  </video>
+</section>
+
+<section id="realworld">
+  <h2>Real-World Validation</h2>
+  <p class="section-subtitle">
+    Representative real-world deployments. Click a task button to switch videos.
+  </p>
+
+  <div class="gallery-tabs">
+    <button class="gallery-btn active" onclick="showRealWorld('wiping', this)">Whiteboard Wiping</button>
+    <button class="gallery-btn" onclick="showRealWorld('belt', this)">Belt Insertion</button>
+    <button class="gallery-btn" onclick="showRealWorld('bulb', this)">Bulb Installation</button>
+    <button class="gallery-btn" onclick="showRealWorld('sorting', this)">Ball Sorting</button>
+  </div>
+
+  <div class="real-video-wrap">
+    <video id="realworld-video" class="content-media" autoplay muted loop playsinline controls>
+      <source id="realworld-source" src="videos/real_wiping.mp4" type="video/mp4" />
+    </video>
+    <h3 id="realworld-title">Wiping</h3>
+    <p id="realworld-caption" class="figure-note">TacImag performs contact-aware wiping using only visual observations and imagined tactile feedback at deployment.</p>
+  </div>
+</section>
+
+<section id="mechanism">
+  <h2>Mechanism: Touch without Tactile Sensors</h2>
+  <p class="section-subtitle">
+    During real-world deployment, the robot observes the scene through vision and proprioception, predicts tactile representations internally, and executes a tactile-conditioned policy without using physical tactile sensors.
+  </p>
+
+  <div class="pipeline">
+    <div class="pipeline-block">
+      <h3>Vision Input</h3>
+      <video autoplay muted loop playsinline controls>
+        <source src="videos/real_imag.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <p class="highlight-note">
+    No tactile sensor is used at test time. TacImag does not recover missing physical measurements directly; instead, imagined tactile observations provide contact-aware supervision that transforms subtle visual interaction cues into policy-friendly representations.
+  </p>
+</section>
+
+<section id="bibtex">
+  <h2>BibTeX</h2>
+  <pre><code>@article{zhang2026tacimag,
+  title={TacImag: Touch-Informed Manipulation through Imagined Tactile Representations},
+  author={Zhang, Zhiyuan and Desai, Adeesh Mahesh and Hu, Jyun-Chi and Saka, Yosuke and Luu, Quan Khanh and Lei, Jiuzhou and Soleymanzadeh, Davood and Zhang, Bihao and Zheng, Minghui and She, Yu},
+  journal={arXiv preprint},
+  year={2026}
+}</code></pre>
+</section>
+
+<script>
+const realWorldVideos = {
+  wiping: {
+    src: 'videos/real_wiping.mp4',
+  },
+  belt: {
+    src: 'videos/real_belt.mp4',
+  },
+  bulb: {
+    src: 'videos/real_bulb.mp4',
+  },
+  sorting: {
+    src: 'videos/real_sorting.mp4',
+  }
+};
+
+function showRealWorld(id, btn) {
+  document.querySelectorAll('.gallery-btn').forEach(button => button.classList.remove('active'));
+  btn.classList.add('active');
+
+  const data = realWorldVideos[id];
+  const video = document.getElementById('realworld-video');
+  const source = document.getElementById('realworld-source');
+  document.getElementById('realworld-title').textContent = data.title;
+  document.getElementById('realworld-caption').textContent = data.caption;
+  source.src = data.src;
+  video.load();
+  video.play();
+}
+</script>
 </body>
 </html>
