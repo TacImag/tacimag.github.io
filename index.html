@@ -6,6 +6,7 @@
   <title>TacImag</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 <nav class="side-nav">
   <a href="#top">Top</a>
@@ -19,7 +20,8 @@
 </nav>
 
 <header id="top">
-  <h3>Imagining the Sense of Touch: Touch-Informed Manipulation via Imagined Tactile Representations</h3>
+  <h1>TacImag</h1>
+  <h2>Imagining the Sense of Touch: Touch-Informed Manipulation via Imagined Tactile Representations</h2>
 
   <p class="authors">
     <a href="https://zhangzhiyuanzhang.github.io/personal_website/" target="_blank">Zhiyuan Zhang*</a>,
@@ -49,58 +51,63 @@
 
 <section id="teaser" class="hero-section">
   <div class="hero-summary">
-    <span>Learning from Touch</span><span>|</span><span>Deploying without Tactile Sensors</span><span>|</span><span>Vision-to-Tactile Imagination</span>
+    <span>Learning from Touch</span>
+    <span>|</span>
+    <span>Deploying without Tactile Sensors</span>
+    <span>|</span>
+    <span>Vision-to-Tactile Imagination</span>
   </div>
 
-  <img src="assets/teaser.svg" class="content-media teaser-img" alt="TacImag teaser" />
+  <img src="assets/teaser.svg" class="figure-teaser" alt="TacImag teaser" />
 
   <p class="hero-caption">
-    TacImag learns to predict task-relevant tactile representations from visual observations, enabling touch-informed manipulation at test time without physical tactile sensors.
+    TacImag predicts task-relevant tactile representations from vision, including TacFF (force-field tactile representation) for contact-sensitive tasks and TacRGB (tactile image representation) for texture-sensitive tasks. These imagined tactile signals enable touch-informed manipulation without physical tactile sensors at deployment.
   </p>
 </section>
 
 <section id="rollouts">
   <h2>Simulation Rollouts</h2>
-  <p class="section-subtitle">
-    TacImag improves both contact-sensitive and texture-sensitive manipulation by generating different imagined tactile representations according to the task requirement.
+  <p class="section-text">
+    TacImag improves contact-sensitive and texture-sensitive manipulation by generating imagined tactile
+    representations according to the task requirement.
   </p>
 
   <div class="two-col">
     <div class="video-card">
       <h3>Contact-Sensitive Rollout</h3>
-      <video autoplay muted loop playsinline controls>
+      <video autoplay muted loop playsinline controls preload="metadata">
         <source src="videos/imag_rollout_ff.mp4" type="video/mp4" />
       </video>
-      <p class="figure-note">Imagined force-field tactile representation supports contact-rich control.</p>
     </div>
 
     <div class="video-card">
       <h3>Texture-Sensitive Rollout</h3>
-      <video autoplay muted loop playsinline controls>
+      <video autoplay muted loop playsinline controls preload="metadata">
         <source src="videos/imag_rollout_rgb.mp4" type="video/mp4" />
       </video>
-      <p class="figure-note">Imagined tactile images preserve task-relevant visual-textural cues.</p>
     </div>
   </div>
 </section>
 
 <section id="method">
   <h2>Method</h2>
-  <p>
-    TacImag uses a two-stage pipeline: first, a tactile imagination model learns to generate tactile observations from visual and proprioceptive inputs; second, a manipulation policy uses the imagined tactile representations as auxiliary observations during policy execution.
+  <p class="section-text">
+    TacImag uses a two-stage pipeline: first, a tactile imagination model learns to generate tactile
+    observations from visual and proprioceptive inputs; second, a manipulation policy uses the imagined
+    tactile representations as auxiliary observations during policy execution.
   </p>
-  <img src="assets/architecture.svg"
-     class="content-media"
-     alt="TacImag architecture"
-     style="width:80%; display:block; margin:auto;">
+
+  <img src="assets/architecture.svg" class="figure-method" alt="TacImag architecture" />
 </section>
 
 <section id="denoising">
   <h2>Tactile Imagination Process</h2>
-  <p class="section-subtitle">
-    The tactile imagination model progressively denoises latent tactile observations and produces task-relevant tactile representations online.
+  <p class="section-text">
+    The tactile imagination model progressively denoises latent tactile observations and produces
+    task-relevant tactile representations online.
   </p>
-  <video class="content-media" autoplay muted loop playsinline controls>
+
+  <video class="media-video" autoplay muted loop playsinline controls preload="metadata">
     <source src="videos/denoise.mp4" type="video/mp4" />
   </video>
 </section>
@@ -118,33 +125,23 @@
     <button class="gallery-btn" onclick="showRealWorld('sorting', this)">Ball Sorting</button>
   </div>
 
-  <div class="real-video-wrap">
-    <video id="realworld-video" class="content-media" autoplay muted loop playsinline controls>
-      <source id="realworld-source" src="videos/real_wiping.mp4" type="video/mp4" />
-    </video>
-    <h3 id="realworld-title">Wiping</h3>
-    <p id="realworld-caption" class="figure-note">TacImag performs contact-aware wiping using only visual observations and imagined tactile feedback at deployment.</p>
-  </div>
+  <h3 id="realworld-title">Whiteboard Wiping</h3>
+
+  <video id="realworld-video" class="media-video" autoplay muted loop playsinline controls preload="metadata">
+    <source id="realworld-source" src="videos/real_wiping.mp4" type="video/mp4" />
+  </video>
+  
 </section>
 
 <section id="mechanism">
   <h2>Mechanism: Touch without Tactile Sensors</h2>
-  <p class="section-subtitle">
-    During real-world deployment, the robot observes the scene through vision and proprioception, predicts tactile representations internally, and executes a tactile-conditioned policy without using physical tactile sensors.
+  <p class="section-text">
+    TacImag does not recover missing physical measurements directly; instead, imagined tactile observations provide contact-aware supervision that transforms subtle visual interaction cues into policy-friendly representations. 
   </p>
 
-  <div class="pipeline">
-    <div class="pipeline-block">
-      <h3>Vision Input</h3>
-      <video autoplay muted loop playsinline controls>
-        <source src="videos/real_imag.mp4" type="video/mp4" />
-      </video>
-    </div>
-  </div>
-
-  <p class="highlight-note">
-    No tactile sensor is used at test time. TacImag does not recover missing physical measurements directly; instead, imagined tactile observations provide contact-aware supervision that transforms subtle visual interaction cues into policy-friendly representations.
-  </p>
+  <video class="media-video" autoplay muted loop playsinline controls preload="metadata">
+    <source src="videos/real_imag.mp4" type="video/mp4" />
+  </video>
 </section>
 
 <section id="bibtex">
@@ -160,31 +157,41 @@
 <script>
 const realWorldVideos = {
   wiping: {
-    src: 'videos/real_wiping.mp4',
+    src: "videos/real_wiping.mp4",
+    title: "Contact-Sensitive"
   },
   belt: {
-    src: 'videos/real_belt.mp4',
+    src: "videos/real_belt.mp4",
+    title: "Contact-Sensitive"
   },
   bulb: {
-    src: 'videos/real_bulb.mp4',
+    src: "videos/real_bulb.mp4",
+    title: "Contact-Sensitive"
   },
   sorting: {
-    src: 'videos/real_sorting.mp4',
+    src: "videos/real_sorting.mp4",
+    title: "Texture-Sensitive"
   }
 };
 
 function showRealWorld(id, btn) {
-  document.querySelectorAll('.gallery-btn').forEach(button => button.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll(".gallery-btn").forEach(button => {
+    button.classList.remove("active");
+  });
+  btn.classList.add("active");
 
   const data = realWorldVideos[id];
-  const video = document.getElementById('realworld-video');
-  const source = document.getElementById('realworld-source');
-  document.getElementById('realworld-title').textContent = data.title;
-  document.getElementById('realworld-caption').textContent = data.caption;
+  const video = document.getElementById("realworld-video");
+  const source = document.getElementById("realworld-source");
+
+  document.getElementById("realworld-title").textContent = data.title;
   source.src = data.src;
   video.load();
-  video.play();
+
+  const playPromise = video.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {});
+  }
 }
 </script>
 </body>
