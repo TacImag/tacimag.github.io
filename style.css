@@ -277,3 +277,20 @@ code {
   }
 }
 
+.logo-imag{
+
+  background:linear-gradient(
+      90deg,
+      #4D6DFF,
+      #A048FF,
+      #FF5A8B,
+      #FF7A18
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  filter:drop-shadow(
+      0 0 10px rgba(255,90,120,.25)
+  );
+}
